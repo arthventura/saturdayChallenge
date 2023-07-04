@@ -52,4 +52,158 @@
 
     Ao final, o programa deverá informar o valor total a ser pago pelo aluguel do veículo, considerando o valor do veículo, o valor do seguro (caso contratado), a quantidade de dias que o veículo foi alugado, a quantidade de Km percorrida (e o adicional pago por Km percorrido, se for o caso), o valor das avarias (caso houverem) e a forma de pagamento escolhida pelo usuário.
     */
+
+    let tipoVeiculo = null;
+let tentativasTipoVeiculo = 0;
+
+while (!['1', '2', '3'].includes(tipoVeiculo)) {
+    if (tentativasTipoVeiculo >= 3) {
+        alert("Número máximo de tentativas excedido. Programa encerrado.");
+        break;
+    }
+    tipoVeiculo = prompt("Qual o tipo de veículo que deseja alugar? (1-Carro, 2-Moto, 3-Caminhão): ");
+    tentativasTipoVeiculo++;
+}
+
+if (tipoVeiculo) {
+    let categoria = null;
+    let tentativasCategoria = 0;
+
+    if (tipoVeiculo === '1') {
+        while (!['1', '2', '3'].includes(categoria)) {
+            if (tentativasCategoria >= 3) {
+            alert("Número máximo de tentativas excedido. Programa encerrado.");
+                break;
+            }
+            categoria = prompt("Qual a categoria de Carro que deseja alugar? (1-Econômico, 2-Intermediário, 3-Luxo): ");
+            tentativasCategoria++;
+        }
+    } else if (tipoVeiculo === '2') {
+        while (!['1', '2', '3'].includes(categoria)) {
+            if (tentativasCategoria >= 3) {
+            alert("Número máximo de tentativas excedido. Programa encerrado.");
+                break;
+            }
+            categoria = prompt("Qual a categoria de Moto que deseja alugar? (1-Econômico, 2-Intermediário, 3-Luxo): ");
+            tentativasCategoria++;
+        }
+    } else if (tipoVeiculo === '3') {
+        while (!['1', '2', '3'].includes(categoria)) {
+            if (tentativasCategoria >= 3) {
+            alert("Número máximo de tentativas excedido. Programa encerrado.");
+                break;
+            }
+            categoria = prompt("Qual a categoria de Caminhão que deseja alugar? (1-Pequeno, 2-Médio, 3-Grande): ");
+            tentativasCategoria++;
+        }
+    }
+
+    if (categoria) {
+        let precoVeiculo = 0;
+
+        if (tipoVeiculo === '1') {
+            if (categoria === '1') {
+                precoVeiculo = 100.0;
+            } else if (categoria === '2') {
+                precoVeiculo = 150.0;
+            } else if (categoria === '3') {
+                precoVeiculo = 200.0;
+            }
+        } else if (tipoVeiculo === '2') {
+            if (categoria === '1') {
+                precoVeiculo = 50.0;
+            } else if (categoria === '2') {
+                precoVeiculo = 100.0;
+            } else if (categoria === '3') {
+                precoVeiculo = 150.0;
+            }
+        } else if (tipoVeiculo === '3') {
+            if (categoria === '1') {
+                precoVeiculo = 200.0;
+            } else if (categoria === '2') {
+                precoVeiculo = 250.0;
+            } else if (categoria === '3') {
+                precoVeiculo = 300.0;
+            }
+        }
+
+        let quantidadeDias = 0;
+        let tentativasDias = 0;
+
+        while (quantidadeDias <= 0) {
+            if (tentativasDias >= 3) {
+            alert("Número máximo de tentativas excedido. Programa encerrado.");
+                break;
+            }
+            quantidadeDias = parseInt(prompt("Quantos dias deseja alugar o veículo? "));
+            tentativasDias++;
+        }
+
+        if (quantidadeDias) {
+            let contratarSeguro = null;
+            let tentativasSeguro = 0;
+
+            while (contratarSeguro === null) {
+                if (tentativasSeguro >= 3) {
+                alert("Número máximo de tentativas excedido. Programa encerrado.");
+                    break;
+                }
+                contratarSeguro = prompt("Deseja contratar seguro? (Digite 'sim' ou 'nao'): ");
+                contratarSeguro = contratarSeguro.toLowerCase();
+                if (contratarSeguro !== 'sim' && contratarSeguro !== 'nao') {
+                    contratarSeguro = null;
+                    tentativasSeguro++;
+                }
+            }
+
+            if (contratarSeguro === 'sim') {
+                const valorSeguro = precoVeiculo * quantidadeDias * 0.1;
+                precoVeiculo += valorSeguro;
+            }
+
+            const kmPercorrida = parseInt(prompt("Quantos Km foram percorridos com o veículo? "));
+            let adicionalKm = 0;
+
+            if (kmPercorrida > quantidadeDias * 50) {
+                adicionalKm = (kmPercorrida - quantidadeDias * 50) * 1;
+            }
+
+            let avaria1 = 0;
+            let valorAvaria1 = 0;
+            let avaria2 = 0;
+            let valorAvaria2 = 0;
+
+            let avaria = prompt(`Seu veículo tem avarias na devolução? (S-Sim | N-Não)`).toUpperCase();
+            if (avaria == "S") {
+                avaria1 = Number(prompt(`Informe a gravidade da avaria:\n
+                1-Leve (R$ 100,00)\n
+                2-Média (R$ 200,00)\n
+                3-Grave (R$ 300,00)`));
+                if (isNaN(avaria1) || avaria < 1 || avaria > 3) {
+                    alert(`Tipo de avaria inválida!`);
+                    avaria1 = Number(prompt(`Informe a gravidade da avaria:\n
+                    1-Leve (R$ 100,00)\n
+                    2-Média (R$ 200,00)\n
+                    3-Grave (R$ 300,00)`));
+                    if (isNaN(avaria1) || avaria < 1 || avaria > 3) {
+                        alert(`Tipo de avaria inválida!`);
+                        avaria1 = Number(prompt(`Informe a gravidade da avaria:\n
+                        1-Leve (R$ 100,00)\n
+                        2-Média (R$ 200,00)\n
+                        3-Grave (R$ 300,00)`));
+                        if (isNaN(avaria1) || avaria < 1 || avaria > 3) {
+                            alert(`O programa será encerrado por excesso de tentativas!`);
+                            throw new Error(`O programa será encerrado por excesso de tentativas!`);
+                        }
+                    }
+                }
+                (avaria1 == 1) ? valorAvaria1 = 100 : (avaria1 == 2) ? valorAvaria1 = 200 : valorAvaria1 == 300;
+                let avaria2 = prompt(`Seu veículo possui mais avarias? (S-Sim | N-Não)`).toUpperCase();
+                if (avaria2 == "S") {
+
+                }
+            }
+        }
+    }
+}
 </script>
